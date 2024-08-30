@@ -1,16 +1,12 @@
-const express = require('express');
-const db = require('./config/db');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-const app = express();
 
-db.authenticate()
-  .then(() => {
-    console.log('Conexão com o banco de dados estabelecida com sucesso.');
-  })
-  .catch((err) => {
-    console.error('Não foi possível conectar ao banco de dados:', err);
-  });
-
-app.listen(process.env.PORT || 3000, () => {
-  console.log(`Servidor rodando na porta ${process.env.PORT || 3000}`);
-});
+ReactDOM.render(
+  <Router>
+    <App />
+  </Router>,
+  document.getElementById('root')
+);

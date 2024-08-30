@@ -1,5 +1,5 @@
 import React from 'react';
-import SigninForm from 'SigninForm';
+import SigninForm from '../components/SigninForm';
 
 const LoginPage = () => {
   const handleLogin = (credentials) => {

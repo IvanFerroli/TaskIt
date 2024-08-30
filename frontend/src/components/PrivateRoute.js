@@ -1,24 +1,21 @@
-// // src/components/PrivateRoute.js
-// import React from 'react';
-// import { Route, Redirect } from 'react-router-dom';
+import React from 'react';
+import { Route, Redirect } from 'react-router-dom';
 
-// // Componente PrivateRoute
-// const PrivateRoute = ({ component: Component, ...rest }) => {
-//   // Substitua a lógica abaixo pela sua lógica real de autenticação
-//   const isAuthenticated = /* lógica para verificar se o usuário está autenticado */;
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const isAuthenticated = !!localStorage.getItem('token'); 
 
-//   return (
-//     <Route
-//       {...rest}
-//       render={props =>
-//         isAuthenticated ? (
-//           <Component {...props} />
-//         ) : (
-//           <Redirect to="/login" />
-//         )
-//       }
-//     />
-//   );
-// };
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        isAuthenticated ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/login" />
+        )
+      }
+    />
+  );
+};
 
-// export default PrivateRoute;
+export default PrivateRoute;
