@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    command: npm start
+
+  auth-service:
+    build:
+      context: ./backend/auth-service
+      dockerfile: Dockerfile
+    container_name: auth-service
+    working_dir: /app
+    ports:
+      - "3001:3001"
+    command: npm start
+    depends_on:
+      - db
+
+  notification-service:
+    build:
+      context: ./backend/notification-service
+      dockerfile: Dockerfile
+    container_name: notification-service
+    working_dir: /app
+    ports:
+      - "3002:3002"
+    command: npm start
+    depends_on:
+      - db
+
+  task-service:
+    build:
+      context: ./backend/task-service
+      dockerfile: Dockerfile
+    container_name: task-service
+    working_dir: /app
+    ports:
+      - "3003:3003"
+    command: npm start
+    depends_on:
+      - db
+    env_file:
+      - ./backend/task-service/.env
+
+  db:
+    image: mysql:5.7
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: Brds-2024
+      MYSQL_DATABASE: taskit_database
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:

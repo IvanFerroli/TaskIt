@@ -1,0 +1,14 @@
+node_modules
+*.log
+npm-debug.log
+tests
+test
+*.test.js
+*.spec.js
+*.tmp
+*.swp
+*.DS_Store
+*.git
+*.gitignore
+build
+dist
