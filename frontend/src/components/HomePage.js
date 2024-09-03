@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import TaskList from '../components/TaskList';
 import TaskForm from '../components/TaskForm';
-import { useTaskContext } from './TaskProvider';
+import { useTaskContext } from '../components/TaskProvider';
 
 const HomePage = () => {
-  const { tasks, fetchTasks } = useTaskContext();
+  const { tasks, fetchTasks, addTask } = useTaskContext();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const HomePage = () => {
   return (
     <div>
       <h1>Home Page</h1>
-      <TaskForm />
+      <TaskForm onSubmit={addTask} />
       <TaskList tasks={tasks} />
     </div>
   );
