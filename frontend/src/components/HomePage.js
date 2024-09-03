@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import TaskList from '../components/TaskList';
 import TaskForm from '../components/TaskForm';
-import { useTaskContext } from '../context/TaskContext';
+import { useTaskContext } from './TaskProvider';
 
 const HomePage = () => {
   const { tasks, fetchTasks } = useTaskContext();

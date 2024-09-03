@@ -11,26 +11,28 @@ import SignupPage from './components/SignupPage';
 import PasswordRecoveryPage from './components/PasswordRecoveryPage';
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
+import { TaskProvider } from './components/TaskProvider'; 
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <Header />
-      <main>
-        <Routes>
-          <Route path="/" element={<PublicRoute restricted={false} component={HomePage} />} />
-          <Route path="/login" element={<PublicRoute restricted={true} component={LoginPage} />} />
-          <Route path="/signup" element={<PublicRoute restricted={true} component={SignupPage} />} />
-          <Route path="/password-recovery" element={<PublicRoute restricted={true} component={PasswordRecoveryPage} />} />
-          <Route path="/dashboard" element={<PrivateRoute component={HomePage} />} />
-          <Route path="*" element={<div>404 - Página não encontrada</div>} />
-        </Routes>
-      </main>
+      <TaskProvider>
+        <main>
+          <Routes>
+            <Route path="/" element={<PublicRoute restricted={false} component={HomePage} />} />
+            <Route path="/login" element={<PublicRoute restricted={true} component={LoginPage} />} />
+            <Route path="/signup" element={<PublicRoute restricted={true} component={SignupPage} />} />
+            <Route path="/password-recovery" element={<PublicRoute restricted={true} component={PasswordRecoveryPage} />} />
+            <Route path="/dashboard" element={<PrivateRoute component={HomePage} />} />
+            <Route path="*" element={<div>404 - Página não encontrada</div>} />
+          </Routes>
+        </main>
+      </TaskProvider>
       <Footer />
     </ThemeProvider>
   );
 }
-
 
 export default App;

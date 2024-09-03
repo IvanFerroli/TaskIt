@@ -1,6 +1,10 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 export const TaskContext = createContext();
+
+export const useTaskContext = () => {
+  return useContext(TaskContext);
+};
 
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
@@ -19,8 +23,15 @@ export const TaskProvider = ({ children }) => {
     ));
   };
 
+  const fetchTasks = async () => {
+    const fetchedTasks = await new Promise((resolve) =>
+      setTimeout(() => resolve([{ id: 1, name: 'Sample Task' }]), 1000)
+    );
+    setTasks(fetchedTasks);
+  };
+
   return (
-    <TaskContext.Provider value={{ tasks, addTask, removeTask, updateTask }}>
+    <TaskContext.Provider value={{ tasks, addTask, removeTask, updateTask, fetchTasks }}>
       {children}
     </TaskContext.Provider>
   );
