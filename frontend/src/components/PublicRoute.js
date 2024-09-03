@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Navigate } from 'react-router-dom';
 
 const PublicRoute = ({ component: Component, restricted, ...rest }) => {
   const isAuthenticated = !!localStorage.getItem('token'); 
@@ -9,7 +9,7 @@ const PublicRoute = ({ component: Component, restricted, ...rest }) => {
       {...rest}
       render={props =>
         isAuthenticated && restricted ? (
-          <Redirect to="/dashboard" />
+          <Navigate to="/dashboard" />
         ) : (
           <Component {...props} />
         )

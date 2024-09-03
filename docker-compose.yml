@@ -8,7 +8,10 @@ services:
     container_name: frontend
     working_dir: /app
     ports:
-      - "3000:3000"
+      - "3001:3001"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
     command: npm start
 
   auth-service:
@@ -18,7 +21,7 @@ services:
     container_name: auth-service
     working_dir: /app
     ports:
-      - "3001:3001"
+      - "3002:3002"
     command: npm start
     depends_on:
       - db
@@ -30,7 +33,7 @@ services:
     container_name: notification-service
     working_dir: /app
     ports:
-      - "3002:3002"
+      - "3003:3003"
     command: npm start
     depends_on:
       - db
@@ -42,7 +45,7 @@ services:
     container_name: task-service
     working_dir: /app
     ports:
-      - "3003:3003"
+      - "3004:3004"
     command: npm start
     depends_on:
       - db

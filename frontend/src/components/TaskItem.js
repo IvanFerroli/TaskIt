@@ -21,15 +21,17 @@ const TaskDescription = styled.p`
   color: #666;
 `;
 
-const TaskItem = ({ task }) => {
+const TaskItem = ({ task, onDelete, onToggle }) => {
   return (
-    <TaskItemContainer>
-      <div>
-        <TaskTitle>{task.title}</TaskTitle>
-        <TaskDescription>{task.description}</TaskDescription>
-      </div>
-      <button>Edit</button>
-      <button>Delete</button>
+    <TaskItemContainer className={`task ${task.completed ? 'completed' : ''}`}>
+      <TaskTitle>
+        {task.title}{' '}
+        <button onClick={() => onDelete(task.id)}>Delete</button>
+      </TaskTitle>
+      <TaskDescription>{task.description}</TaskDescription>
+      <button onClick={() => onToggle(task.id)}>
+        {task.completed ? 'Undo' : 'Complete'}
+      </button>
     </TaskItemContainer>
   );
 };
