@@ -21,11 +21,46 @@ function App() {
       <TaskProvider>
         <main>
           <Routes>
-            <Route path="/" element={<PublicRoute restricted={false} component={HomePage} />} />
-            <Route path="/login" element={<PublicRoute restricted={true} component={LoginPage} />} />
-            <Route path="/signup" element={<PublicRoute restricted={true} component={SignupPage} />} />
-            <Route path="/password-recovery" element={<PublicRoute restricted={true} component={PasswordRecoveryPage} />} />
-            <Route path="/dashboard" element={<PrivateRoute component={HomePage} />} />
+            <Route 
+              path="/" 
+              element={
+                <PublicRoute restricted={false}>
+                  <HomePage />
+                </PublicRoute>
+              } 
+            />
+            <Route 
+              path="/login" 
+              element={
+                <PublicRoute restricted={true}>
+                  <LoginPage />
+                </PublicRoute>
+              } 
+            />
+            <Route 
+              path="/signup" 
+              element={
+                <PublicRoute restricted={true}>
+                  <SignupPage />
+                </PublicRoute>
+              } 
+            />
+            <Route 
+              path="/password-recovery" 
+              element={
+                <PublicRoute restricted={true}>
+                  <PasswordRecoveryPage />
+                </PublicRoute>
+              } 
+            />
+            <Route 
+              path="/dashboard" 
+              element={
+                <PrivateRoute>
+                  <HomePage /> {/* Altere para o componente desejado */}
+                </PrivateRoute>
+              } 
+            />
             <Route path="*" element={<div>404 - Página não encontrada</div>} />
           </Routes>
         </main>

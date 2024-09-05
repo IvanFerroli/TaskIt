@@ -1,13 +1,14 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import authService from '../services/authService';
 
-const PublicRoute = ({ component: Component, restricted, ...rest }) => {
-  const isAuthenticated = !!localStorage.getItem('token');
+const PublicRoute = ({ children, restricted }) => {
+  const isAuthenticated = authService.isAuthenticated(); 
 
   return isAuthenticated && restricted ? (
     <Navigate to="/dashboard" />
   ) : (
-    <Component {...rest} />
+    children
   );
 };
 
