@@ -1,5 +1,5 @@
-
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const FormContainer = styled.div`
@@ -45,16 +45,23 @@ const SignupForm = ({ onSubmit }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const navigate = useNavigate(); 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
-      onSubmit({ email, password });
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
+      try {
+        await onSubmit({ email, password }); 
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+        navigate('/login'); 
+      } catch (error) {
+        console.error('Error during signup', error);
+        alert('Signup failed. Please try again.'); 
+      }
     } else {
-      alert("Passwords do not match!");
+      alert('Passwords do not match!');
     }
   };
 
