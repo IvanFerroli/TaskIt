@@ -13,6 +13,8 @@ services:
       - ./frontend:/app
       - /app/node_modules
     command: npm start
+    env_file:
+      - ./frontend/frontend.env
 
   auth-service:
     build:
@@ -22,9 +24,10 @@ services:
     working_dir: /app
     ports:
       - "3002:3002"
-    command: npm start
     depends_on:
-      - db
+      - auth-db
+    env_file:
+      - ./backend/auth-service/auth.env
 
   notification-service:
     build:
@@ -34,9 +37,10 @@ services:
     working_dir: /app
     ports:
       - "3003:3003"
-    command: npm start
     depends_on:
-      - db
+      - notification-db
+    env_file:
+      - ./backend/notification-service/notification.env
 
   task-service:
     build:
@@ -46,22 +50,45 @@ services:
     working_dir: /app
     ports:
       - "3004:3004"
-    command: npm start
     depends_on:
-      - db
+      - task-db
     env_file:
-      - ./backend/task-service/.env
+      - ./backend/task-service/task.env
 
-  db:
+  auth-db:
     image: mysql:5.7
-    container_name: mysql_db
+    container_name: auth-db
+    environment:
+      MYSQL_ROOT_PASSWORD: Brds-2024
+      MYSQL_DATABASE: auth_database
+    ports:
+      - "3307:3306"
+    volumes:
+      - auth_db_data:/var/lib/mysql
+
+  notification-db:
+    image: mysql:5.7
+    container_name: notification-db
+    environment:
+      MYSQL_ROOT_PASSWORD: Brds-2024
+      MYSQL_DATABASE: notification_database
+    ports:
+      - "3308:3306"
+    volumes:
+      - notification_db_data:/var/lib/mysql
+
+  task-db:
+    image: mysql:5.7
+    container_name: task-db
     environment:
       MYSQL_ROOT_PASSWORD: Brds-2024
       MYSQL_DATABASE: taskit_database
     ports:
-      - "3306:3306"
+      - "3309:3306"
     volumes:
-      - db_data:/var/lib/mysql
+      - task_db_data:/var/lib/mysql
 
 volumes:
-  db_data:
+  auth_db_data:
+  notification_db_data:
+  task_db_data:
