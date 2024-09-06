@@ -12,60 +12,63 @@ import PasswordRecoveryPage from './components/PasswordRecoveryPage';
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
 import { TaskProvider } from './components/TaskProvider'; 
+import { AuthProvider } from './components/AuthProvider';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <Header />
-      <TaskProvider>
-        <main>
-          <Routes>
-            <Route 
-              path="/" 
-              element={
-                <PublicRoute restricted={false}>
-                  <HomePage />
-                </PublicRoute>
-              } 
-            />
-            <Route 
-              path="/login" 
-              element={
-                <PublicRoute restricted={true}>
-                  <LoginPage />
-                </PublicRoute>
-              } 
-            />
-            <Route 
-              path="/signup" 
-              element={
-                <PublicRoute restricted={true}>
-                  <SignupPage />
-                </PublicRoute>
-              } 
-            />
-            <Route 
-              path="/password-recovery" 
-              element={
-                <PublicRoute restricted={true}>
-                  <PasswordRecoveryPage />
-                </PublicRoute>
-              } 
-            />
-            <Route 
-              path="/dashboard" 
-              element={
-                <PrivateRoute>
-                  <HomePage /> {/* Altere para o componente desejado */}
-                </PrivateRoute>
-              } 
-            />
-            <Route path="*" element={<div>404 - Página não encontrada</div>} />
-          </Routes>
-        </main>
-      </TaskProvider>
-      <Footer />
+      <AuthProvider>
+        <Header />
+        <TaskProvider>
+          <main>
+            <Routes>
+              <Route 
+                path="/" 
+                element={
+                  <PublicRoute restricted={false}>
+                    <HomePage />
+                  </PublicRoute>
+                } 
+              />
+              <Route 
+                path="/login" 
+                element={
+                  <PublicRoute restricted={true}>
+                    <LoginPage />
+                  </PublicRoute>
+                } 
+              />
+              <Route 
+                path="/signup" 
+                element={
+                  <PublicRoute restricted={true}>
+                    <SignupPage />
+                  </PublicRoute>
+                } 
+              />
+              <Route 
+                path="/password-recovery" 
+                element={
+                  <PublicRoute restricted={true}>
+                    <PasswordRecoveryPage />
+                  </PublicRoute>
+                } 
+              />
+              <Route 
+                path="/dashboard" 
+                element={
+                  <PrivateRoute>
+                    <HomePage /> {/* Altere para o componente desejado */}
+                  </PrivateRoute>
+                } 
+              />
+              <Route path="*" element={<div>404 - Página não encontrada</div>} />
+            </Routes>
+          </main>
+        </TaskProvider>
+        <Footer />
+      </AuthProvider>
     </ThemeProvider>
   );
 }
