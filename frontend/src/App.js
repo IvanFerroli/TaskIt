@@ -11,8 +11,9 @@ import SignupPage from './components/SignupPage';
 import PasswordRecoveryPage from './components/PasswordRecoveryPage';
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
-import { TaskProvider } from './components/TaskProvider'; 
+import { TaskProvider } from './components/TaskProvider';
 import { AuthProvider } from './components/AuthProvider';
+import WelcomePage from './components/WelcomePage';
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
                 path="/" 
                 element={
                   <PublicRoute restricted={false}>
-                    <HomePage />
+                    <WelcomePage /> 
                   </PublicRoute>
                 } 
               />
@@ -59,7 +60,7 @@ function App() {
                 path="/dashboard" 
                 element={
                   <PrivateRoute>
-                    <HomePage /> {/* Altere para o componente desejado */}
+                    <HomePage /> 
                   </PrivateRoute>
                 } 
               />
