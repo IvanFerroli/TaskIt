@@ -27,14 +27,16 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html'
     }),
-    new Dotenv()
+    new Dotenv({
+      path: './frontend.env', 
+    })
   ],
   devServer: {
     static: {
       directory: path.join(__dirname, 'public'), 
     },
     compress: true,
-    port: 3001,
+    port: 3001, 
     historyApiFallback: true,
   },
 };

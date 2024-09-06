@@ -1,8 +1,8 @@
-# Dockerfile para o notification-service
+# Dockerfile para notification-service
+
 FROM node:18
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-EXPOSE 3003
-CMD ["npm", "start"]
+CMD ["node", "notificationIndex.js"]

@@ -1,8 +1,8 @@
-# Dockerfile para o task-service
+# Dockerfile para task-service
+
 FROM node:18
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-EXPOSE 3004
-CMD ["npm", "start"]
+CMD ["node", "taskIndex.js"]  # Nome do arquivo de entrada ajustado
