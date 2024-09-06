@@ -1,7 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom'; 
 import styled from 'styled-components';
 import theme from '../styles/theme';
+import { AuthContext } from './AuthProvider'; 
 
 const HeaderContainer = styled.header`
   background-color: ${theme.colors.primary};
@@ -26,14 +27,39 @@ const NavLink = styled(Link)`
   }
 `;
 
+const LogoutButton = styled.button`
+  background-color: transparent;
+  border: none;
+  color: ${theme.colors.white};
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 const Header = () => {
+  const { authState, logout } = useContext(AuthContext); 
+  const navigate = useNavigate(); 
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login'); 
+  };
+
   return (
     <HeaderContainer>
       <h1>Task Manager</h1>
       <Nav>
         <NavLink to="/">Home</NavLink>
-        <NavLink to="/login">Login</NavLink>
-        <NavLink to="/signup">Signup</NavLink>
+        {!authState.isAuthenticated ? (
+          <>
+            <NavLink to="/login">Login</NavLink>
+            <NavLink to="/signup">Signup</NavLink>
+          </>
+        ) : (
+          <LogoutButton onClick={handleLogout}>Logout</LogoutButton> 
+        )}
       </Nav>
     </HeaderContainer>
   );
