@@ -6,7 +6,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   module: {
     rules: [
@@ -14,29 +14,37 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
-        }
+          loader: 'babel-loader',
+        },
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      }
-    ]
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.html'
+      template: './public/index.html',
     }),
     new Dotenv({
-      path: './frontend.env', 
-    })
+      path: './frontend.env',
+    }),
   ],
   devServer: {
     static: {
-      directory: path.join(__dirname, 'public'), 
+      directory: path.join(__dirname, 'public'),
     },
     compress: true,
-    port: 3001, 
+    port: 3001,
     historyApiFallback: true,
+    client: {
+      webSocketURL: {
+        hostname: 'localhost',
+        pathname: '/ws',
+        port: '3001',
+        protocol: 'ws',
+      },
+    },
   },
 };

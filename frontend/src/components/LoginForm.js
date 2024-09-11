@@ -39,7 +39,7 @@ const FormButton = styled.button`
   }
 `;
 
-const SigninForm = ({ onSubmit }) => {
+const LoginForm = ({ onSubmit }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -73,10 +73,10 @@ const SigninForm = ({ onSubmit }) => {
             required
           />
         </FormField>
-        <FormButton type="submit">Sign In</FormButton>
+        <FormButton type="submit">Login</FormButton>
       </form>
     </FormContainer>
   );
 };
 
-export default SigninForm;
+export default LoginForm;

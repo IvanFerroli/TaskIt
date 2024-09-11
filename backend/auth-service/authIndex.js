@@ -1,9 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const sequelize = require('./config/authDataBase');
 const authRoutes = require('./routes/authRoutes');
-require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 3002;

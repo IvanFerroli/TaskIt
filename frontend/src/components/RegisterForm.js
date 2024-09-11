@@ -41,29 +41,34 @@ const FormButton = styled.button`
   }
 `;
 
-const SignupForm = ({ onSubmit }) => {
+const RegisterForm = ({ onSubmit }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate(); 
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (password === confirmPassword) {
-      try {
-        await onSubmit({ email, password }); 
+  e.preventDefault();
+  if (password === confirmPassword) {
+    try {
+      const result = await onSubmit({ email, password });
+      if (email && password) {
         setEmail('');
         setPassword('');
         setConfirmPassword('');
         navigate('/login'); 
-      } catch (error) {
-        console.error('Error during signup', error);
-        alert('Signup failed. Please try again.'); 
+      } else {
+        alert(result?.error || 'Register failed. Please try again.');
       }
-    } else {
-      alert('Passwords do not match!');
+    } catch (error) {
+      console.error('Error during register', error);
+      alert('Register failed. Please try again.');
     }
-  };
+  } else {
+    alert('Passwords do not match!');
+  }
+};
+
 
   return (
     <FormContainer>
@@ -98,10 +103,10 @@ const SignupForm = ({ onSubmit }) => {
             required
           />
         </FormField>
-        <FormButton type="submit">Sign Up</FormButton>
+        <FormButton type="submit">Register</FormButton>
       </form>
     </FormContainer>
   );
 };
 
-export default SignupForm;
+export default RegisterForm;

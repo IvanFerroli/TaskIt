@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; 
-import SigninForm from '../components/SigninForm';
+import LoginForm from '../components/LoginForm';
 import authService from '../services/authService'; 
 
 const LoginPage = () => {
@@ -9,6 +9,7 @@ const LoginPage = () => {
   const handleLogin = async (credentials) => {
     try {
       const response = await authService.login(credentials); 
+      console.log(response);
       if (response.success) {
         
         navigate('/');
@@ -25,7 +26,7 @@ const LoginPage = () => {
   return (
     <div>
       <h1>Login</h1>
-      <SigninForm onSubmit={handleLogin} />
+      <LoginForm onSubmit={handleLogin} />
     </div>
   );
 };

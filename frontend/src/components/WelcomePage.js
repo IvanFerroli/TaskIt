@@ -51,7 +51,7 @@ const WelcomePage = () => {
         Se você já tem uma conta, <Link to="/login">faça login aqui</Link>.
       </p>
       <p>
-        Não tem uma conta? <Link to="/signup">Cadastre-se agora</Link> e comece a organizar suas tarefas!
+        Não tem uma conta? <Link to="/register">Cadastre-se agora</Link> e comece a organizar suas tarefas!
       </p>
     </WelcomeContainer>
   );

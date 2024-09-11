@@ -11,30 +11,32 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const checkAuth = () => {
-      const isAuthenticated = authService.isAuthenticated();
-      if (isAuthenticated) {
-        setAuthState({ isAuthenticated: true, user: authService.getToken() });
+      const token = localStorage.getItem('token');  
+      if (token) {
+        setAuthState({ isAuthenticated: true, user: token });  
       } else {
         setAuthState({ isAuthenticated: false, user: null });
       }
     };
-
+  
     checkAuth();
   }, []);
-
+  
   const login = async (credentials) => {
     const result = await authService.login(credentials);
     if (result.success) {
-      setAuthState({ isAuthenticated: true, user: authService.getToken() });
+      const token = authService.getToken();  // Corrige para pegar o token diretamente
+      setAuthState({ isAuthenticated: true, user: token });
     }
     return result;
   };
-
+  
   const logout = () => {
     authService.logout();
+    localStorage.removeItem('token');  
     setAuthState({ isAuthenticated: false, user: null });
   };
-
+  
   return (
     <AuthContext.Provider value={{ authState, login, logout }}>
       {children}

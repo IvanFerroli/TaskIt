@@ -1,27 +1,30 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode'; 
 
-const API_URL = '/auth';
+const API_URL = 'http://localhost:3002/auth';
 
 const login = async (credentials) => {
   try {
+    
     const response = await axios.post(`${API_URL}/login`, credentials);
+    
+    console.log(response.data.token); 
+    
     if (response.data.token) {
       localStorage.setItem('token', response.data.token);
       return { success: true };
     } else {
-      return { success: false };
+      return { success: false, error: 'Login failed' };
     }
   } catch (error) {
-    console.error('Error during login', error);
-    return { success: false };
+    console.error('Error during login:', error);
+    return { success: false, error: error.response?.data?.error || 'Internal server error, login' };
   }
 };
 
 const logout = () => {
   localStorage.removeItem('token');
 };
-
 
 const isAuthenticated = () => {
   const token = localStorage.getItem('token');
@@ -38,7 +41,7 @@ const isAuthenticated = () => {
     }
     return true; 
   } catch (error) {
-    console.error('Error decoding token', error);
+    console.error('Error decoding token:', error);
     return false;
   }
 };
@@ -47,13 +50,18 @@ const getToken = () => {
   return localStorage.getItem('token');
 };
 
-const signup = async (data) => {
+const register = async (data) => {
   try {
     const response = await axios.post(`${API_URL}/register`, data);
-    return response.data;
+    
+    if (response.status === 201) {
+      return { success: true, data: response.data };
+    } else {
+      return { success: false, error: response.data.error || 'Registration failed' };
+    }
   } catch (error) {
-    console.error('Error during signup', error);
-    throw error;
+    console.error('Error during register:', error);
+    return { success: false, error: error.response?.data?.error || 'Internal server error, register' };
   }
 };
 
@@ -62,5 +70,5 @@ export default {
   logout,
   isAuthenticated,
   getToken,
-  signup,
+  register,
 };

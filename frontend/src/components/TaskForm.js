@@ -53,9 +53,9 @@ const TaskForm = ({ onSubmit, task = {} }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit({ title, description });
-    setTitle('');
-    setDescription('');
-  };
+        setTitle('');
+        setDescription('');
+};
 
   return (
     <FormContainer>

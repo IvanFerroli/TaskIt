@@ -7,7 +7,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
-import SignupPage from './components/SignupPage';
+import RegisterPage from './components/RegisterPage';
 import PasswordRecoveryPage from './components/PasswordRecoveryPage';
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
@@ -41,10 +41,10 @@ function App() {
                 } 
               />
               <Route 
-                path="/signup" 
+                path="/register" 
                 element={
                   <PublicRoute restricted={true}>
-                    <SignupPage />
+                    <RegisterPage />
                   </PublicRoute>
                 } 
               />

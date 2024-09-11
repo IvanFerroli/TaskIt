@@ -15,6 +15,8 @@ services:
     command: npm start
     env_file:
       - ./frontend/frontend.env
+    networks:
+      - taskit_network
 
   auth-service:
     build:
@@ -28,6 +30,8 @@ services:
       - auth-db
     env_file:
       - ./backend/auth-service/auth.env
+    networks:
+      - taskit_network
 
   notification-service:
     build:
@@ -41,6 +45,8 @@ services:
       - notification-db
     env_file:
       - ./backend/notification-service/notification.env
+    networks:
+      - taskit_network
 
   task-service:
     build:
@@ -54,41 +60,68 @@ services:
       - task-db
     env_file:
       - ./backend/task-service/task.env
+    networks:
+      - taskit_network
 
   auth-db:
     image: mysql:5.7
     container_name: auth-db
     environment:
-      MYSQL_ROOT_PASSWORD: Brds-2024
+      MYSQL_ROOT_PASSWORD: NovaSenha
       MYSQL_DATABASE: auth_database
     ports:
       - "3307:3306"
     volumes:
       - auth_db_data:/var/lib/mysql
+    networks:
+      - taskit_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   notification-db:
     image: mysql:5.7
     container_name: notification-db
     environment:
-      MYSQL_ROOT_PASSWORD: Brds-2024
+      MYSQL_ROOT_PASSWORD: NovaSenha
       MYSQL_DATABASE: notification_database
     ports:
       - "3308:3306"
     volumes:
       - notification_db_data:/var/lib/mysql
+    networks:
+      - taskit_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   task-db:
     image: mysql:5.7
     container_name: task-db
     environment:
-      MYSQL_ROOT_PASSWORD: Brds-2024
+      MYSQL_ROOT_PASSWORD: NovaSenha
       MYSQL_DATABASE: taskit_database
     ports:
       - "3309:3306"
     volumes:
       - task_db_data:/var/lib/mysql
+    networks:
+      - taskit_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
 volumes:
   auth_db_data:
   notification_db_data:
   task_db_data:
+
+networks:
+  taskit_network:
+    driver: bridge

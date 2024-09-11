@@ -8,7 +8,7 @@ const theme = {
     info: '#17a2b8',
     light: '#f8f9fa',
     dark: '#343a40',
-    white: '#ffffff', // Adicione esta linha
+    white: '#ffffff',
   },
   fonts: {
     body: 'Arial, sans-serif',

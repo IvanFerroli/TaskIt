@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
+import taskService from '../services/taskService'; 
 
 export const TaskContext = createContext();
 
@@ -23,15 +24,18 @@ export const TaskProvider = ({ children }) => {
     ));
   };
 
-  const fetchTasks = async () => {
-    const fetchedTasks = await new Promise((resolve) =>
-      setTimeout(() => resolve([{ id: 1, name: 'Sample Task' }]), 1000)
-    );
-    setTasks(fetchedTasks);
+  
+  const fetchTasksByUser = async (userId) => {
+    const result = await taskService.getTasksByUserId(userId);
+    if (result.success) {
+      setTasks(result.data);
+    } else {
+      console.error(result.error);
+    }
   };
 
   return (
-    <TaskContext.Provider value={{ tasks, addTask, removeTask, updateTask, fetchTasks }}>
+    <TaskContext.Provider value={{ tasks, setTasks, addTask, removeTask, updateTask, fetchTasksByUser }}>
       {children}
     </TaskContext.Provider>
   );

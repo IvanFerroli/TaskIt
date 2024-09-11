@@ -5,11 +5,11 @@ import authService from '../services/authService';
 const PublicRoute = ({ children, restricted }) => {
   const isAuthenticated = authService.isAuthenticated(); 
 
-  return isAuthenticated && restricted ? (
-    <Navigate to="/dashboard" />
-  ) : (
-    children
-  );
+  if (isAuthenticated && restricted) {
+    return <Navigate to="/dashboard" />;
+  }
+
+  return children;
 };
 
 export default PublicRoute;
